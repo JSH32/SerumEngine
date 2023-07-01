@@ -1,18 +1,19 @@
 #include "raylib.h"
 #include "raymath.h"
 
+#include "rlImGui.h"
+
 const int gridSize      = 100;
 const float gridSpacing = 1.0f;
 
-void DrawInfiniteGrid(Vector3 cameraPosition, float gridSize,
-    float gridSpacing);
+void DrawInfiniteGrid(Vector3 cameraPosition, float gridSize, float gridSpacing);
 
 int main() {
     // Initialization
-    const int screenWidth  = 800;
-    const int screenHeight = 450;
+    const int screenWidth  = 1280;
+    const int screenHeight = 720;
 
-    InitWindow(screenWidth, screenHeight, "Infinite Grid");
+    InitWindow(screenWidth, screenHeight, "SerumEngine");
 
     // Define the camera to look into our 3D world
     Camera camera     = { 0 };
@@ -21,7 +22,6 @@ int main() {
     camera.up         = { 0.0f, 1.0f, 0.0f };
     camera.fovy       = 45.0f;
     camera.projection = CAMERA_PERSPECTIVE;
-    // camera.type = CAMERA_PERSPECTIVE;
 
     DisableCursor();
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
@@ -54,8 +54,7 @@ int main() {
     return 0;
 }
 
-void DrawInfiniteGrid(Vector3 cameraPosition, float gridSize,
-    float gridSpacing) {
+void DrawInfiniteGrid(Vector3 cameraPosition, float gridSize, float gridSpacing) {
     // Calculate the nearest grid lines to the camera
     int xStart = (int)(roundf(cameraPosition.x / gridSpacing) - gridSize / 2);
     int zStart = (int)(roundf(cameraPosition.z / gridSpacing) - gridSize / 2);

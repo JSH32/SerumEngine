@@ -12,17 +12,33 @@ task("configure")
     }
 task_end()
 
+set_languages("c++17")
+
 add_requires("glfw")
+add_requires("spdlog v1.11.0")
 add_requires("raylib 4.5.0")
+add_requires("entt v3.9.0")
+add_requires("imgui v1.89.6-docking")
 
 target("serum-core")
     set_kind("static")
-    add_includedirs("core/include")
-    add_packages("glfw", "raylib", { public = true })
+    add_includedirs(
+        "core/include",
+        "vendor/raylib-cpp/include",
+        { public = true }
+    )
+    add_packages("glfw", "raylib", "entt", "spdlog", { public = true })
     add_files("core/src/*.cpp")
 
 target("serum-editor")
     set_kind("binary")
-    add_includedirs("editor/include")
+    add_packages("imgui")
     add_deps("serum-core")
-    add_files("editor/src/*.cpp")
+    add_includedirs(
+        "vendor/rlImGui",
+        "editor/include"
+    )
+    add_files(
+        "vendor/rlImGui/rlImGui.cpp",
+        "editor/src/*.cpp"
+    )
